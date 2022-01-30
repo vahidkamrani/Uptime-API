@@ -1,0 +1,26 @@
+services:
+  sqlite3:
+    image: nouchka/sqlite3:latest
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./db/:/root/db/
+  app:
+    build: .
+    command: "python manage.py runserver 0.0.0.0:8000"
+    container_name: app
+    volumes: 
+      - .:/code/
+    depends_on:
+      - sqlite3
+    ports:
+      - "8000:8000"
+    networks:
+      - main
+    restart: always
+    
+    
+networks:
+  main:
+
+    
