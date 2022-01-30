@@ -5,5 +5,5 @@ from . import views
 
 app_name = 'APIuptime'
 urlpatterns = [
-    path('uptime/', views.uptime1, name='uptime'),
+    path('uptime/', views.uptime, name='uptime'),
 ]
