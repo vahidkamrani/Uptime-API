@@ -1,20 +1,22 @@
 services:
   sqlite3:
+    container_name: sqlite
     image: nouchka/sqlite3:latest
     stdin_open: true
     tty: true
     volumes:
       - ./db/:/root/db/
-  app:
+  web-uptime:
     build: .
-    command: "python manage.py runserver 0.0.0.0:8000"
-    container_name: app
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001"
+    container_name: web-uptime
+    image: web-uptime
     volumes: 
       - .:/code/
     depends_on:
       - sqlite3
     ports:
-      - "8000:8000"
+      - "8001:8001"
     networks:
       - main
     restart: always
